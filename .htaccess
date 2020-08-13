@@ -1,0 +1,11 @@
+# Cú pháp mặc định bắt đầu viết file .htaccess
+Options +FollowSymLinks
+RewriteEngine On
+
+# Kiểm tra folder và kiểm tra file
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# Điều hướng tất cả link về file index.php
+# $1 là lấy tất cả dữ liệu trên đường link đằng sau đường link gốc
+RewriteRule ^(.+)$ index.php?url=$1

@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ustora Demo</title>
-    <base href="http://localhost:8080/web-php-mvc/">
+    <base href="<?php echo URL; ?>">
     <!-- Google Fonts -->
    
 
@@ -34,6 +34,8 @@
     <?php require_once('home/slider-area.php'); ?>
     
     <?php require_once('home/promo-area.php'); ?>
+
+    <?php require_once ($data['main'].'.php'); ?>
     
     <?php require_once('home/mainmenu-area.php'); ?>
     

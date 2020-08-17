@@ -1,14 +1,9 @@
 <?php
-    class Admin{
-        // function __construct(){
-        //     echo 'Đây là admin';
-        // }
+    class Admin extends Connect{
         function index(){
-            echo 'admin';
+           $data['main']='home/content';
+           $this->load_views('admin/index',$data);
         }
 
-        function insert($a, $b){
-            echo 'Đây là a='. $a . 'và b=' . $b;
-        }
     }
 ?>

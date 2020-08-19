@@ -5,6 +5,15 @@
            
            $this->load_views('admin/index',$data);
         }
-
+        function add(){
+            $data['main'] = 'product/add';
+            
+            $this->load_views('admin/index',$data);
+        }
+        function edit($id){
+            $data['main'] = 'product/edit';
+            
+            $this->load_views('admin/index',$data);
+        }
     }
 ?>

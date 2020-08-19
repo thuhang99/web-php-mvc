@@ -18,44 +18,57 @@
             <a href="#" class="d-block">Alexander Pierce</a>
         </div>
         </div>
-
-        <!-- Sidebar Menu -->
         <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-                with font-awesome or any other icon font library -->
+                <?php 
+                    $arr = array(
+                        'Admin' =>  array(
+                            'name' => 'Bảng điều khiển',
+                            'icon' => 'tachometer-alt'
+                        ),
+                        'Product' =>  array(
+                            'name' => 'Sản phẩm',
+                            'icon' => 'th'
+                        ),
+                        'Category' =>  array(
+                            'name' => 'Danh mục',
+                            'icon' => 'copy'
+                        ),
+                        'User' =>  array(
+                            'name' => 'Thành viên',
+                            'icon' => 'chart-pie'
+                        )
+                    );
+                    $url = explode('/', $_GET['url']);
+
+                    $url_active = '';
+
+                    if(isset($url[0]))
+                    {
+                        $url_active = $url[0];
+                    }
+                ?>
+                <?php 
+                    foreach ($arr as $key => $value) {   
+                        if($key == $url_active )
+                        {
+                            $active = 'active';
+                        }
+                        else {
+                            $active = '';
+                        }
+                ?>
             <li class="nav-item has-treeview">
-                <a href="<?php echo URL.'Admin'; ?>" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                <a href="<?php echo URL.$key; ?>" class="nav-link <?php echo $active; ?>">
+                    <i class="nav-icon fas fa-<?php echo $value['icon'] ?>"></i>
                     <p>
-                    Bảng điều khiển
+                    <?php echo $value['name']; ?>
                     </p>
-                </a>
+                 </a>   
             </li>
-            <li class="nav-item">
-                <a href="<?php echo URL.'Product'; ?>" class="nav-link">
-                    <i class="nav-icon fas fa-th"></i>
-                    <p>
-                    Sản phẩm
-                    </p>
-                </a>
-            </li>
-            <li class="nav-item has-treeview">
-                <a href="<?php echo URL.'Category'; ?>" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
-                    <p>
-                    Danh mục
-                    </p>
-                </a>
-            </li>
-            <li class="nav-item has-treeview">
-                <a href="<?php echo URL.'User'; ?>" class="nav-link">
-                    <i class="nav-icon fas fa-chart-pie"></i>
-                    <p>
-                    Thành viên
-                    </p>
-                </a>
-            </li>
+            <?php 
+                    }
+            ?>
         </ul>
         </nav>
         <!-- /.sidebar-menu -->

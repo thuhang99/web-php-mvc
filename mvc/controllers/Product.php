@@ -10,6 +10,11 @@
             
             $this->load_views('admin/index',$data);
         }
+
+        function process_add()
+        {
+            echo 'Xin chào';
+        }
         function edit($id){
             $data['main'] = 'product/edit';
             

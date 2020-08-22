@@ -26,36 +26,36 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form role="form">
+            <form role="form" id="formProduct" method="POST" enctype="multipart/form-data">
             <div class="card-body">
                 
                 <div class="form-group">
                     <label for="name">Tên sản phẩm</label>
-                    <input type="text" class="form-control" id="name" name="name">
+                    <input type="text" class="form-control" id="name" name="name" onkeydown="ChangeToSlug()" onkeyup="ChangeToSlug()" onchange="ChangeToSlug()">
                 </div>
 
                 <div class="form-group">
                     <label for="link">Link</label>
-                    <input type="text" class="form-control" id="link" name="link">
+                    <input type="text" class="form-control" id="link" name="link" disabled>
                 </div>
 
                 <div class="form-group">
                     <label for="content">Nội dung</label>
-                    <textarea name="content" class="form-control" id="content" rows="3"></textarea>
+                    <textarea name="content" class="form-control" name="content" id="content" rows="3"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="img">Ảnh đại diện</label>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="img">
+                            <input type="file" class="custom-file-input" name="img" id="img">
                             <label class="custom-file-label" for="img">Choose file</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="status">
+                    <input type="checkbox" class="form-check-input" name="status" id="status" checked>
                     <label class="form-check-label" for="status">Hiển thị</label>
                 </div>
 

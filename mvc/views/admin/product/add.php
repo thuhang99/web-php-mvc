@@ -36,7 +36,7 @@
 
                 <div class="form-group">
                     <label for="link">Link</label>
-                    <input type="text" class="form-control" id="link" name="link" disabled>
+                    <input type="text" class="form-control" id="link" name="link">
                 </div>
 
                 <div class="form-group">

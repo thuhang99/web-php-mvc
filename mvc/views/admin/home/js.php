@@ -129,7 +129,15 @@ function ChangeToSlug()
           processData: false,
           // Kết quả trả về từ back-end
           success: function(rs){
-            console.log(rs);
+            if(rs == 'ok')
+            {
+              window.location.href = '<?php echo URL; ?>Product';
+            }
+            else
+            {
+              alert(rs);
+            }
+            //console.log(rs);
           }
         });
         // Thực hiện xong dừng luôn

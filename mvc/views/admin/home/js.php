@@ -86,6 +86,14 @@ function ChangeToSlug()
 
 <!-- Kiểm tra dữ liệu bảng product -->
 <script>
+  <?php
+    $url = $_GET['url'];
+    $url = explode('/', $url);
+
+    if($url[0]=='Product'){
+      if(isset($url[1])){
+      if($url[1]!=''){
+  ?>
   $(document).ready(function(){
     $('#formProduct').on('submit', function(e){
       // Tắt load lại trang, chặn submit
@@ -96,14 +104,21 @@ function ChangeToSlug()
       name = $('#name').val();
       link = $('#link').val();
       img = $('#img').val();
-      status = $('#status').val();
+      // Sửa lại
+      status = $('#status').prop("checked");
       // Kiểm tra dữ liệu
       
       // Kiểm tra Tên
-      if(name.length > 70){
-        flag=0;
-        err+='Tên sản phẩm vượt quá số kí tự quy định,';
-      }
+      // if(name.length > 10){
+      //   flag=0;
+      //   err+='Tên sản phẩm vượt quá số kí tự quy định,';
+      // }
+
+      // Kiểm tra Link
+      // if(link.length > 10){
+      //   flag=0;
+      //   err+='Link sản phẩm vượt quá số kí tự quy định';
+      // }
 
       // Lấy dữ liệu nội dung trong ckeditor
       content = CKEDITOR.instances['content'].getData() 
@@ -111,6 +126,13 @@ function ChangeToSlug()
 
       var form = new FormData(this);
       form.append('content', content);
+      // chỉnh sửa status
+      (status==true) ? status=1: status=0;
+      // thêm status
+      form.append('status', status);
+
+      // thêm id
+      form.append('id', <?php echo (isset($url[2])) ? $url[2]:0; ?>);
 
       // KẾT QUẢ
       if(flag==1){
@@ -118,7 +140,7 @@ function ChangeToSlug()
         // alert('ok');
         $.ajax({
           // Đường dẫn đến nơi xử lý
-          url: '<?php echo URL; ?>Product/process_add',
+          url: '<?php echo URL; ?>Product/process_<?php echo $url[1]; ?>',
           // Phương thức gửi đi
           type: 'POST',
           // Dữ liệu gửi đi
@@ -129,12 +151,11 @@ function ChangeToSlug()
           processData: false,
           // Kết quả trả về từ back-end
           success: function(rs){
-            if(rs == 'ok')
-            {
+            if(rs=='ok'){
               window.location.href = '<?php echo URL; ?>Product';
-            }
-            else
-            {
+            }else if(rs=='ok-update'){
+              alert('Đã cập nhật thành công');
+            }else{
               alert(rs);
             }
             //console.log(rs);
@@ -149,4 +170,22 @@ function ChangeToSlug()
 
     });
   });
+  <?php }}} ?>
+
+  function xoa_ngay(id)
+  {
+    $('#del_'+id).remove();
+    $.ajax({
+      url: '<?php echo URL.'Product/delete'; ?>',
+      type: 'POST',
+      data: {
+        'id' : id
+      },
+      success: function(result)
+      {
+        alert(result);
+      }
+    });
+    return false;
+  }
 </script>

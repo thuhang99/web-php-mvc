@@ -4,7 +4,7 @@
         function search_table($search)
         {
             
-            $sql = "SELECT * FROM product WHERE name LIKE '%'".$search."'%'";
+            $sql = "SELECT * FROM product WHERE name LIKE '%".$search."%'";
             $result = $this->conn->query($sql);
 
             if ($result->num_rows > 0) {

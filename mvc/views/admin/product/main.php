@@ -35,7 +35,7 @@
                 <div class="card-tools">
                 <form action="" method="GET">
                   <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="search" class="form-control float-right" placeholder="Search">
+                    <input type="text" name="search" class="form-control float-right" placeholder="Search" value="<?php if(isset($_GET['search'])){ echo $_GET['search']; } ?>">
 
                     <div class="input-group-append">
                       <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
@@ -51,7 +51,18 @@
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
+            <ul class="pagination pagination-sm">
+              <li class="page-item "><a class="page-link" href="#">First</a></li>
+              <li class="page-item "><a class="page-link" href="#">Prev</a></li>
+              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              <li class="page-item"><a class="page-link" href="#">Last</a></li>
+            </ul>
           </div>
+          <!-- pagination -->
+          
         </div>
       </div><!-- /.container-fluid -->
     </section>

@@ -4,11 +4,12 @@
             // Load models
             $db = $this->load_models('M_Product');
             $data['table'] = $db->select_table();
-
-            if(isset($_GET['search']))
+            
+            // lấy ra giá trị search
+            if( isset($_GET['search']) )
             {
                 $search = $_GET['search'];
-                $data['table'] = $db->search_table();
+                $data['table'] = $db->search_table($search);
             }
                     
             // load giao diện trang sản phẩm product/main.php
@@ -238,19 +239,31 @@
         function delete()
         {
             $id = $_POST['id'];
-            
-            //kết nối database và xóa dữ liệu
-            $db = $this->load_models('M_Product');           
-            //lấy thông tin
+
+            // Kết nối database
+            $db = $this->load_models('M_Product');
+
+            // hàm lấy ra thông tin sản phẩm
             $select = $db->select_row($id);
 
-            //lấy ra tên ảnh
+            // lấy ra tên tấm ảnh
             $name_img = $select['img'];
+            
+            if($name_img!='')
+            {
+                $target_dir = 'uploads/products/';
+                $target_file = $target_dir . basename( $name_img );
 
-            //xóa ảnh trong folder
-            unlink('uploads/products/'.$name_img);
-            //Xóa dữ liệu
+                if( file_exists($target_file) )
+                {
+                    // xóa ảnh trong folder
+                    unlink($target_file);
+                }
+            }
+
+            // xóa dữ liệu
             $kq = $db->delete($id);
+
             echo $kq;
         }
     }

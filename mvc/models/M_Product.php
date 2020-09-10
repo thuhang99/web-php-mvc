@@ -1,6 +1,21 @@
 <?php
     class M_Product extends Database{
+        function sum_rows($table)
+        {
+            $sql = "SELECT COUNT(*) AS total FROM $table";
+            $result = $this -> conn -> query($sql);
 
+            if($result->num_rows > 0)
+            {
+                $row = $result->fetch_assoc();
+                $kq = $row['total'];
+            }
+            else {
+                $kq = 0;
+            }
+            return $kq;
+
+        }
         function search_table($search)
         {
             
@@ -154,8 +169,8 @@
             return $kq;
 
         }
-        function select_table(){
-            $sql = 'SELECT * FROM product ORDER BY id DESC LIMIT 0,5';
+        function select_table($start, $limit){
+            $sql = "SELECT * FROM product ORDER BY id DESC LIMIT $start,$limit";
             $result = $this->conn->query($sql);
 
             if ($result->num_rows > 0) {

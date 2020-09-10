@@ -1,17 +1,86 @@
 <?php
     class Product extends Connect{
         function index(){
-            // Load models
+
             $db = $this->load_models('M_Product');
-            $data['table'] = $db->select_table();
+
+            //Phân trang
+            //Tìm tổng số dòng
+            $sum_rows = $db -> sum_rows('product');
             
+            $limit = 5;
+
+            $page = 0;
+
+            if(isset($_GET['page']))
+            {
+               $page = $_GET['page'];
+            }
+
+            if($page == 0 || $page == 1)
+            {
+                $start = 0;
+            }
+            else {
+                $start = ($page - 1) * $limit;
+            }
+
+            //hiển thị phân trang
+            $value_pagination = ceil($sum_rows/$limit);
+            //Disable đầu
+            $disabled_first = '';
+            if($page == 0 || $page == 1)
+            {
+                $disabled_first = 'disabled';
+            }
+
+            //Trang đầu
+            $link_first = URL.'Product?page=1';
+            $view_pagination = '<li class="page-item '.$disabled_first.' "><a class="page-link" href="'.$link_first.'">First</a></li>';
+            //Trang tiếp
+            $link_first_one =  URL.'Product/?page='.($page - 1);
+            $view_pagination .= '<li class="page-item '.$disabled_first.' "><a class="page-link" href="'.$link_first_one.'"><<</a></li>';
+
+           
+            if($page == 0)
+            {
+                $page = 1;
+            }
+            for($i = 1; $i <= $value_pagination; $i++)
+            {
+                $link_pagination = URL.'Product?page='.$i;
+                $active = '';
+                if($i == $page)
+                {
+                    $active = 'active';
+                }
+                $view_pagination .= '<li class="page-item '.$active.'"><a class="page-link" href="'.$link_pagination.'">'.$i.'</a></li>';
+            }
+
+            //Disable cuối
+            $disabled_last = '';
+            if($page == $value_pagination)
+            {
+                $disabled_last = 'disabled';
+            }
+            //Trang cuối
+            $view_pagination .= '<li class="page-item '.$disabled_last.' "><a class="page-link" href="'.$link_last_one.'">>></a></li>';
+
+            $link_last_one =  URL.'Product/?page='.($page + 1);
+            $view_pagination .= '<li class="page-item '.$disabled_last.' "><a class="page-link" href="#">Last</a></li>';
+
+            $data['pagination'] = $view_pagination;
+            // Load models
+           
+            $data['table'] = $db->select_table($start, $limit);
+
             // lấy ra giá trị search
             if( isset($_GET['search']) )
             {
                 $search = $_GET['search'];
                 $data['table'] = $db->search_table($search);
             }
-                    
+                  
             // load giao diện trang sản phẩm product/main.php
             $data['main'] = 'product/main';
 

@@ -1,10 +1,11 @@
 <?php
     class Admin extends Connect{
         function index(){
-           $data['main']='home/content';
-           
-           $this->load_views('admin/index',$data);
-        }
+            // load giao diện trang chủ home/main.php
+            $data['main'] = 'home/content';
 
+            // Chỉ truyền $data qua class Connect, function load_views
+            $this->load_views('admin/index', $data);
+        }
     }
 ?>

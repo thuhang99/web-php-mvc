@@ -91,8 +91,8 @@ function ChangeToSlug()
     $url = explode('/', $url);
 
     if($url[0]=='Product'){
-      if(isset($url[1])){
-      if($url[1]!=''){
+      if( isset($url[1]) ){
+        if($url[1]!=''){
   ?>
   $(document).ready(function(){
     $('#formProduct').on('submit', function(e){
@@ -174,18 +174,20 @@ function ChangeToSlug()
 
   function xoa_ngay(id)
   {
+    // xóa dòng trên bảng
     $('#del_'+id).remove();
+    //alert(id);
     $.ajax({
       url: '<?php echo URL.'Product/delete'; ?>',
       type: 'POST',
       data: {
         'id' : id
       },
-      success: function(result)
-      {
+      success: function(result){
         alert(result);
       }
     });
     return false;
   }
+
 </script>

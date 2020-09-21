@@ -20,10 +20,21 @@
                     // giao diện giỏ hàng
                     if($_GET['url'] == 'gio-hang.html')
                     {
-                        print_r($_SESSION['cart']);
-                        die;
+                        $data['cart'] = [];
+
+                        if( isset($_SESSION['cart']) )
+                        {
+                            //print_r($_SESSION['cart']);
+                            $data['cart'] = $this->cart($_SESSION['cart']);
+                        }
                         
                         $data['main'] = 'cart/main';
+                    }
+
+                    // giao diện thanh toán
+                    if($_GET['url'] == 'thanh-toan.html')
+                    {
+                        $data['main'] = 'cart/payment';
                     }
                 }
                 else
@@ -52,6 +63,69 @@
             $this->load_views('layout/index', $data);
         }
 
+        function delete_cart()
+        {
+            $id=$_POST['id'];
+            // loại bỏ key ra khỏi mảng
+            unset($_SESSION['cart'][$id]);
+        }
+
+        function updated_cart()
+        {
+            $k = $_POST['k'];
+
+            $k = explode('/', $k);
+
+            foreach ($k as $key => $value) {
+                $v = explode(',', $value);
+
+                // cập nhật giỏ hàng
+                $_SESSION['cart'][$v[0]]['qty'] = $v[1];
+            }
+        }
+
+        function cart($arr)
+        {
+            $str='';
+
+            foreach ($arr as $key => $value) {
+                $str.='<tr class="cart_item" id="tr_'.$key.'">
+                    <td class="product-remove">
+                        <a title="Remove this item" onclick="delete_cart('.$key.')" class="remove" href="javascript:;">×</a> 
+                    </td>
+
+                    <td class="product-thumbnail">
+                        <a href="'.URL.$value['link'].'.html">
+                            <img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="assets/layout/img/product-thumb-2.jpg">
+                        </a>
+                    </td>
+
+                    <td class="product-name">
+                        <a href="'.URL.$value['link'].'.html">'.$value['name'].'</a> 
+                    </td>
+
+                    <td class="product-price">
+                        <span class="amount">£15.00</span> 
+                    </td>
+
+                    <td class="product-quantity">
+                        <div class="quantity buttons_added">
+                            <input type="button" class="minus" value="-">
+                            <input type="number" size="4" name="qty" class="input-text qty text" title="Qty" value="'.$value['qty'].'" min="0" step="1">
+                            <input type="hidden" name="_id" value="'.$key.'">
+                            <input type="button" class="plus" value="+">
+                        </div>
+                    </td>
+
+                    <td class="product-subtotal">
+                        <span class="amount">£15.00</span> 
+                    </td>
+                </tr>';
+            }
+
+            return $str;
+        }
+
         function menu()
         {
             $str = '<li class="active"><a href="'.URL.'">Trang chủ</a></li>';
@@ -74,23 +148,30 @@
             $db = $this->load_models('M_Layout');
 
             // id sản phẩm lấy từ ajax
-            $id = $_POST['ID'];
+            $id = $_POST['id'];
 
             // lấy ra thông tin sản phẩm
             $row_product = $db->pull_rows_product($id);
 
-            $array = array(
-                'name' => $row_product['name'],
-                'link' => $row_product['link'],
-                'price' => $row_product['price'],
-                'qty' => 1
-            );
+            if( isset($_SESSION['cart'][$id]) )
+            {
+                if( $_SESSION['cart'][$id] )
+                {
+                    $qty = $_SESSION['cart'][$id]['qty']++;
+                }
+            }
+            else
+            {
+                $array = array(
+                    'name' => $row_product['name'],
+                    'link' => $row_product['link'],
+                    'price' => $row_product['price'],
+                    'qty' => 1
+                );
 
-            // thêm vào giỏ hàng
-            $_SESSION['cart'][$id] = $array;
-
-            //print_r($_SESSION['cart']);
-
+                // thêm vào giỏ hàng
+                $_SESSION['cart'][$id] = $array;
+            }
         }
     }
 ?>

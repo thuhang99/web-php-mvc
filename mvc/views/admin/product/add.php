@@ -38,13 +38,15 @@
                     <label for="link">Link</label>
                     <input type="text" class="form-control" id="link" name="link">
                 </div>
+
                 <div class="form-group">
                     <label for="id_category">Danh mục</label>
                     <select name="id_category" id="id_category" class="form-control">
                       <option value="0">--Chọn--</option>
-                      <?php echo $data['category'];?>
+                      <?php echo $data['category']; ?>
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label for="content">Nội dung</label>
                     <textarea name="content" class="form-control" name="content" id="content" rows="3"></textarea>

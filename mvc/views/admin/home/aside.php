@@ -18,57 +18,66 @@
             <a href="#" class="d-block">Alexander Pierce</a>
         </div>
         </div>
+
+        <!-- Sidebar Menu -->
         <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <?php 
-                    $arr = array(
-                        'Admin' =>  array(
-                            'name' => 'Bảng điều khiển',
-                            'icon' => 'tachometer-alt'
-                        ),
-                        'Product' =>  array(
-                            'name' => 'Sản phẩm',
-                            'icon' => 'th'
-                        ),
-                        'Category' =>  array(
-                            'name' => 'Danh mục',
-                            'icon' => 'copy'
-                        ),
-                        'User' =>  array(
-                            'name' => 'Thành viên',
-                            'icon' => 'chart-pie'
-                        )
-                    );
-                    $url = explode('/', $_GET['url']);
+            <!-- Add icons to the links using the .nav-icon class
+                with font-awesome or any other icon font library -->
 
-                    $url_active = '';
+            <?php
+                $arr = array(
+                    'Admin' => array(
+                        'name' => 'Bảng điều khiển',
+                        'icon' => 'tachometer-alt'
+                    ),
+                    'Product' => array(
+                        'name' => 'Sản phẩm',
+                        'icon' => 'th'
+                    ),
+                    'Category' => array(
+                        'name' => 'Danh mục',
+                        'icon' => 'copy'
+                    ),
+                    'User' => array(
+                        'name' => 'Thành viên',
+                        'icon' => 'chart-pie'
+                    )
+                );
+                // mảng $key => $value
 
-                    if(isset($url[0]))
-                    {
-                        $url_active = $url[0];
-                    }
-                ?>
-                <?php 
-                    foreach ($arr as $key => $value) {   
-                        if($key == $url_active )
-                        {
-                            $active = 'active';
-                        }
-                        else {
-                            $active = '';
-                        }
-                ?>
+                // Lấy $url để xét với vòng lặp phía dưới
+                $url = explode('/', $_GET['url']);
+
+                $url_active='';
+
+                if( isset($url[0]) ){
+                    $url_active = $url[0];
+                }
+            ?>
+
+            <?php foreach($arr as $key => $value){ 
+                
+                // Kiểm tra active
+                if( $key == $url_active ){
+                    $active = 'active';
+                }else{
+                    $active = '';
+                }
+                
+            ?>
+
             <li class="nav-item has-treeview">
                 <a href="<?php echo URL.$key; ?>" class="nav-link <?php echo $active; ?>">
-                    <i class="nav-icon fas fa-<?php echo $value['icon'] ?>"></i>
+                    <i class="nav-icon fas fa-<?php echo $value['icon']; ?>"></i>
                     <p>
                     <?php echo $value['name']; ?>
                     </p>
-                 </a>   
+                </a>
             </li>
-            <?php 
-                    }
-            ?>
+
+            <?php } ?>
+
         </ul>
         </nav>
         <!-- /.sidebar-menu -->

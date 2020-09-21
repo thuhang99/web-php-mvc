@@ -33,15 +33,15 @@
                 </h3>
 
                 <div class="card-tools">
-                <form action="" method="GET">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="search" class="form-control float-right" placeholder="Search" value="<?php if(isset($_GET['search'])){ echo $_GET['search']; } ?>">
+                  <form action="" method="GET">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                      <input type="text" name="search" class="form-control float-right" value="<?php if(isset($_GET['search'])){ echo $_GET['search']; } ?>" placeholder="Search">
 
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                      </div>
                     </div>
-                  </div>
-                </form>
+                  </form>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -50,13 +50,12 @@
               </div>
               <!-- /.card-body -->
             </div>
-            <!-- /.card -->
+            <!-- pagination -->
             <ul class="pagination pagination-sm">
-              <?php echo $data['pagination'];?>
+              <?php echo $data['pagination']; ?>
             </ul>
+            <!-- /.card -->
           </div>
-          <!-- pagination -->
-          
         </div>
       </div><!-- /.container-fluid -->
     </section>

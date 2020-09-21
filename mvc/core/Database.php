@@ -28,7 +28,7 @@
 
             $str_sql = trim($str_sql, ',');
 
-            $sql = "UPDATE $table SET $str_sql WHERE id=$id";
+            $sql = "UPDATE $table SET $str_sql WHERE ID=$id";
 
             if($this->conn->query($sql) === TRUE)
             {
@@ -73,7 +73,7 @@
 
         function p_delete($table, $id)
         {
-            $sql = "DELETE FROM $table WHERE id=$id";
+            $sql = "DELETE FROM $table WHERE ID=$id";
 
             if($this->conn->query($sql) === TRUE)
             {
@@ -90,7 +90,7 @@
         function p_select_row($table, $id)
         {
             //echo $id;die;
-            $sql = "SELECT * FROM $table WHERE id=$id";
+            $sql = "SELECT * FROM $table WHERE ID=$id";
             $result = $this->conn->query($sql);
 
             if($result->num_rows > 0)

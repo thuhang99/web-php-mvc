@@ -31,23 +31,25 @@
                 
                 <div class="form-group">
                     <label for="name">Tên sản phẩm</label>
-                    <input type="text" class="form-control" id="name" name="name" value="<?php echo $data['row']['name'];?>">
+                    <input type="text" class="form-control" id="name" name="name" value="<?php echo $data['row']['name']; ?>">
                 </div>
 
                 <div class="form-group">
                     <label for="link">Link</label>
-                    <input type="text" class="form-control" id="link" name="link" value="<?php echo $data['row']['link'];?>">
+                    <input type="text" class="form-control" id="link" name="link" value="<?php echo $data['row']['link']; ?>">
                 </div>
+
                 <div class="form-group">
                     <label for="id_category">Danh mục</label>
                     <select name="id_category" id="id_category" class="form-control">
                       <option value="0">--Chọn--</option>
-                      <?php echo $data['category'];?>
+                      <?php echo $data['category']; ?>
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label for="content">Nội dung</label>
-                    <textarea name="content" class="form-control" name="content" id="content" rows="3" ><?php echo $data['row']['content']; ?></textarea>
+                    <textarea name="content" class="form-control" name="content" id="content" rows="3"><?php echo $data['row']['content']; ?></textarea>
                 </div>
 
                 <div class="form-group">
@@ -59,16 +61,18 @@
                         </div>
                     </div>
                     <br>
-                <p>
-                <img src="<?php echo URL.'uploads/products/'.$data['row']['img']; ?>" alt="" width="100">
-                </p>
+                    <p>
+                      <img src="<?php echo URL.'uploads/products/'.$data['row']['img']; ?>" width="100">
+                    </p>
                 </div>
 
-                <?php 
+                <?php
+                  // Kiểm tra status
                   ($data['row']['status']==1)?$checked='checked':$checked='';
                 ?>
+
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="status" id="status" <?php echo $checked;?> >
+                    <input type="checkbox" class="form-check-input" name="status" id="status" <?php echo $checked; ?>>
                     <label class="form-check-label" for="status">Hiển thị</label>
                 </div>
 

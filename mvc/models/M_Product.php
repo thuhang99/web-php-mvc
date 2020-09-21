@@ -152,7 +152,7 @@
                             </div>
                             <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-outline-light" data-dismiss="modal">Thoát</button>
-                            <button type="button" class="btn btn-outline-light" data-dismiss="modal" onclick="xoa_ngay('.$row['id'].')">Xóa ngay</button>
+                            <button type="button" class="btn btn-outline-light" data-dismiss="modal" onclick="xoa_ngay('.$row['ID'].')">Xóa ngay</button>
                             </div>
                         </div>
                         <!-- /.modal-content -->

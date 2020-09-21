@@ -1,38 +1,36 @@
 <?php
     class Login extends Connect{
-        function index(){          
+        function index(){
             $this->load_views('admin/login/index');
         }
-        function process()
-        {
-            $username = $password = '';
-            //lấy dữ liệu
+        function process(){
+            // khai báo
+            $username=$password='';
+            // lấy dữ liệu
             $username = $_POST['username'];
             $password = $_POST['password'];
+            // kiểm tra dữ liệu
+            // echo $username.'/'.$password;
 
-            echo $username.'/'.$password;
+            $flag=1;
+            $err='';
 
-            //kiểm tra
-            $flag = 1;
-            $err = '';
-
-            if($username == '')
-            {
-                $flag = 0;
-                $err.='Tên đăng nhập rỗng';
-            }
-            if($password == '')
-            {
-                $flag = 0;
-                $err.='Mật khẩu rỗng';
+            // kiểm tra username
+            if($username==''){
+                $flag=0;
+                $err.='Tên đăng nhập không được rỗng';
             }
 
-            //kết quả
-            if($flag == 1)
-            {
-                //database
+            // kiểm tra password
+            if($password==''){
+                $flag=0;
+                $err.='Mật khẩu không được rỗng';
             }
-            else {
+
+            // KẾT QUẢ
+            if($flag==1){
+                // Kết nối database và gắn session, chuyển trang vào admin
+            }else{
                 echo $err;
             }
         }

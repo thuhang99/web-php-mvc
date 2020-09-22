@@ -1,6 +1,43 @@
 <?php
     class M_Layout extends Database{
         
+        function insert($table, $array)
+        {
+            return $this->p_insert($table, $array);
+        }
+
+        function check_customer($phone)
+        {
+            $sql = "SELECT * FROM customer WHERE phone=$phone";
+            $result = $this->conn->query($sql);
+            
+            return $result->num_rows;
+        }
+
+        function area($table, $status, $name_where, $value_where)
+        {
+            if($status==1)
+            {
+                $sql = "SELECT * FROM $table";
+            }
+            else
+            {
+                $sql = "SELECT * FROM $table WHERE $name_where=$value_where";
+            }
+            
+            $result = $this->conn->query($sql);
+
+            $str='<option value="0">Chọn…</option>';
+
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()) {
+                    $str.='<option value="'.$row['ID'].'">'.$row['name'].'</option>';
+                }
+            }
+
+            return $str;
+        }
+
         function pull_rows_product($id)
         {
             $sql = "SELECT * FROM product WHERE ID=$id";

@@ -19,6 +19,76 @@
 <script src="assets/layout/js/script.slider.js"></script>
 
 <script>
+    function thanhtoan()
+    {
+        // Thông tin khách hàng
+        var name, email, phone, address, province, dictrict, wards, flag=1;
+        var err='';
+
+        name=$('#name').val();
+        email=$('#email').val();
+        phone=$('#phone').val();
+        address=$('#address').val();
+        province=$('#province').val();
+        dictrict=$('#dictrict').val();
+        wards=$('#wards').val();
+
+        if(phone=='')
+        {
+            err += 'Vui lòng nhập số điện thoại';
+            flag=0;
+        }
+
+        if(flag==1)
+        {
+            $.ajax({
+                url: '<?php echo URL.'Layout/thanhtoan'; ?>',
+                type: 'POST',
+                data: {
+                    'name' : name, 
+                    'email': email, 
+                    'phone': phone,
+                    'address': address,
+                    'province': province, 
+                    'dictrict': dictrict,
+                    'wards': wards,
+                },
+                success: function(result){
+                    if(result=='customer')
+                    {
+                        alert('Đã thêm khách hàng thành công');
+                    }
+                    console.log(result);
+                    //$('#'+table).html(result);
+                }
+            });
+            return false;
+        }
+        else
+        {
+            alert(err);
+        }
+    }
+    function area(table, status, name_where)
+    {
+        var id = $('#'+name_where).val();
+        $.ajax({
+            url: '<?php echo URL.'Layout/area'; ?>',
+            type: 'POST',
+            data: {
+                'value_where' : id, 
+                'table': table, 
+                'status': status,
+                'name_where': name_where
+            },
+            success: function(result){
+                //alert(result);
+                $('#'+table).html(result);
+            }
+        });
+        return false;
+        //alert(id);
+    }
     function add_to_cart(id)
     {
         if(id==0 || id<0)

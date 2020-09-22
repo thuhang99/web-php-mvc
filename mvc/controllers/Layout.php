@@ -34,6 +34,9 @@
                     // giao diện thanh toán
                     if($_GET['url'] == 'thanh-toan.html')
                     {
+                        // lấy ra danh sách tỉnh
+                        $data['provine'] = $db->area('province', 1, '', '');
+
                         $data['main'] = 'cart/payment';
                     }
                 }
@@ -61,6 +64,71 @@
 
             // Chỉ truyền $data qua class Connect, function load_views
             $this->load_views('layout/index', $data);
+        }
+
+        function thanhtoan()
+        {
+            // thông tin khách hàng
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $phone = $_POST['phone'];
+            $address = $_POST['address'];
+            $province = $_POST['province'];
+            $dictrict = $_POST['dictrict'];
+            $wards = $_POST['wards'];
+
+            // Load models
+            $db = $this->load_models('M_Layout');
+
+            // kiểm tra khách hàng có tồn tại chưa
+            // phone
+
+            $kq_phone = $db->check_customer($phone);
+
+            if($kq_phone==0)
+            {
+                // thêm khách hàng vào database
+
+                // coi chừng để sai tên cột
+
+                $array=array(
+                    'name' => $name,
+                    'email' => $email,
+                    'phone' => $phone,
+                    'address' => $address,
+                    'id_province' => $province,
+                    'id_dictrict' => $dictrict,
+                    'id_ward' => $wards
+                );
+
+                $db->insert('customer', $array);
+                //echo 'đã có khách hàng';
+
+                echo 'customer';
+            }
+            else
+            {
+                echo 'Khách hàng đã có';
+            }
+        }
+
+        function area()
+        {
+            $table = $_POST['table'];
+            $status = $_POST['status'];
+            $name_where = $_POST['name_where'];
+            $value_where = $_POST['value_where'];
+
+            // Load models
+            $db = $this->load_models('M_Layout');
+
+            // lấy ra dữ liệu area
+            $kq = $db->area($table, $status, $name_where, $value_where);
+            
+            echo $kq;
+
+            // test
+            //echo $table.'/'.$status.'/'.$name_where.'/'.$value_where;
         }
 
         function delete_cart()

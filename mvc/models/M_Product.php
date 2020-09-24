@@ -214,6 +214,7 @@
                             <th>STT</th>
                             <th>Sản phẩm</th>
                             <th>Tên</th>
+                            <th>Giá tiền</th>
                             <th>Danh mục</th>
                             <th>Hiển thị</th>
                             <th>Chức năng</th>
@@ -240,6 +241,7 @@
                         <td>'.$i.'</td>
                         <td><img src="'.URL.'uploads/products/'.$row['img'].'" width="50"></td>
                         <td>'.$row['name'].'</td>
+                        <td>'.$row['price'].'</td>
                         <td><a href="'.URL.$row_category['link'].'" target="_blank">
                             '.$row_category['name'].'</a></td>
                         <td>

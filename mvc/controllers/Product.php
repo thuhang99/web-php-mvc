@@ -158,11 +158,12 @@
         }
         function process_add(){
             // khai báo
-            $name=$link=$content=$img=$err=$status='';
+            $name=$link=$content=$img=$price=$err=$status='';
             // Lấy dữ liệu
             $name=$_POST['name'];
             $link=$_POST['link'];
             $content=$_POST['content'];
+            $price=$_POST['price'];
             $status=$_POST['status'];
 
             // danh mục
@@ -249,6 +250,7 @@
                     'link' => $link,
                     'img' => $img,
                     'content' => $content,
+                    'price' => $price,
                     'status' => $status,
                     'id_category' => $id_category
                 ];
@@ -290,6 +292,7 @@
             $name=$_POST['name'];
             $link=$_POST['link'];
             $content=$_POST['content'];
+            $price=$_POST['price'];
             $status=$_POST['status'];
 
             // danh mục
@@ -383,6 +386,7 @@
                     'link' => $link,
                     'img' => $img,
                     'content' => $content,
+                    'price' => $price,
                     'status' => $status,
                     'id_category' => $id_category
                 ];

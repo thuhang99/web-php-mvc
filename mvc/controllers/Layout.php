@@ -102,14 +102,91 @@
                 );
 
                 $db->insert('customer', $array);
-                //echo 'đã có khách hàng';
 
-                echo 'customer';
+                // id_customer
+                $id_customer = $db->last_customer();
             }
             else
             {
-                echo 'Khách hàng đã có';
+                // khách hàng đã có rồi
+                // id_customer
+                $id_customer = $db->customer_exist($phone);
             }
+
+            // phương thức giao hàng
+            $id_delivery = $_POST['id_delivery'];
+
+            // cộng tiền hàng
+            $congtienhang=0;
+            foreach($_SESSION['cart'] as $key => $value){
+                $congtienhang+=$value['qty']*$value['price'];
+            }
+
+            $array_order=array(
+                'id_customer' => $id_customer,
+                'id_delivery' => $id_delivery,
+                'congtienhang' => $congtienhang
+            );
+
+            // thêm dữ liệu vào bảng đơn hàng (orders)
+            $db->insert('orders', $array_order);
+
+            // id_order
+            $id_order = $db->last_orders();
+
+            // thêm dữ liệu vào bảng chi tiết đơn hàng (order_details)
+            foreach($_SESSION['cart'] as $key => $value){
+                $array_order_details=array(
+                    'id_order' => $id_order,
+                    'name' => $value['name'],
+                    'qty' => $value['qty'],
+                    'price' => $value['price']
+                );
+
+                $db->insert('order_details', $array_order_details);
+            }
+
+            // tự động chuyển trang
+            //header('location:'.URL);
+
+            // Gửi mail
+            include "class.phpmailer.php";
+            include "class.smtp.php";
+
+            $mail = new PHPMailer();
+            $mail->IsSMTP(); // set mailer to use SMTP
+            $mail->Host = "smtp.gmail.com"; // specify main and backup server
+            $mail->Port = 465; // set the port to use
+            $mail->SMTPAuth = true; // turn on SMTP authentication
+            $mail->SMTPSecure = 'ssl';
+            $mail->Username = "phamthuhang09091999@gmail.com"; // your SMTP username or your gmail username
+            $mail->Password = "moicongchua0909"; // your SMTP password or your gmail password
+            $from = "phamthuhang09091999@gmail.com"; // Reply to this email
+            $to = "lengoctuyen197@gmail.com"; // Recipients email ID
+            $name = "Tuyên ơi em đói"; // Recipient's name
+            $mail->From = $from;
+            $mail->FromName = "Chin chào Tuyên"; // Name to indicate where the email came from when the recepient received
+            $mail->AddAddress($to,$name);
+            $mail->AddReplyTo($from,"Test thử");
+            $mail->WordWrap = 50; // set word wrap
+            $mail->IsHTML(true); // send as HTML
+            $mail->Subject = "PHP mailler";
+            $mail->Body = "<h1>Thông tin khách hàng</h1> '.$name.' <br> '.$email.' <br> '.$phone.' <br> '.$address.'"; //HTML Body
+            //$mail->AltBody = "Mail nay duoc gui bang SMTP Gmail dung phpmailer class. - www.pavietnam.vn"; //Text Body
+            //$mail->SMTPDebug = 2;
+            if(!$mail->Send())
+            {
+                echo "<h1>Loi khi goi mail: " . $mail->ErrorInfo . '</h1>';
+            }
+            else
+            {
+                echo "<h1>Send mail thanh cong</h1>";
+            }
+
+            // hủy giỏ hàng
+            //session_destroy();
+
+            //echo 'ok';
         }
 
         function area()

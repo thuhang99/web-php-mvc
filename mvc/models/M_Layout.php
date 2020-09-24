@@ -1,6 +1,36 @@
 <?php
     class M_Layout extends Database{
         
+        function last_orders()
+        {
+            $sql = "SELECT ID FROM orders ORDER BY ID DESC";
+            $result = $this->conn->query($sql);
+            
+            $row = $result->fetch_assoc();
+
+            return $row['ID'];
+        }
+
+        function customer_exist($phone)
+        {
+            $sql = "SELECT ID FROM customer WHERE phone=$phone";
+            $result = $this->conn->query($sql);
+            
+            $row = $result->fetch_assoc();
+
+            return $row['ID'];
+        }
+
+        function last_customer()
+        {
+            $sql = "SELECT ID FROM customer ORDER BY ID DESC";
+            $result = $this->conn->query($sql);
+            
+            $row = $result->fetch_assoc();
+
+            return $row['ID'];
+        }
+
         function insert($table, $array)
         {
             return $this->p_insert($table, $array);
@@ -58,7 +88,7 @@
                     $str .= '<div class="col-md-3 col-sm-6">
                         <div class="single-shop-product">
                             <div class="product-upper">
-                                <img src="assets/layout/img/product-2.jpg" alt="'.$row['name'].'">
+                                <img src="'.URL.'uploads/products/'.$row['img'].'" alt="'.$row['name'].'" class="img1">
                             </div>
                             <h2><a href="'.URL.$row['link'].'.html">'.$row['name'].'</a></h2>
                             <div class="product-carousel-price">
@@ -108,7 +138,7 @@
                 while($row = $result->fetch_assoc()) {
                     $str .= '<div class="single-product">
                         <div class="product-f-image">
-                            <img src="assets/layout/img/product-1.jpg" alt="">
+                            <img src="'.URL.'uploads/products/'.$row['img'].'" alt="" class="img1">
                             <div class="product-hover">
                                 <a href="javascript:;" class="add-to-cart-link" onclick="add_to_cart('.$row['ID'].')"><i class="fa fa-shopping-cart"></i> Add to cart</a>
                                 <a href="'.URL.$row['link'].'.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>

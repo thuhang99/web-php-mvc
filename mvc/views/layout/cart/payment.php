@@ -185,10 +185,10 @@
                                         <div>
                                             <ul>
                                                 <li>
-                                                    <input type="radio" name="delivery" checked> Viettel
+                                                    <input type="radio" name="delivery" value="1" checked> Viettel
                                                 </li>
                                                 <li>
-                                                    <input type="radio" name="delivery"> Kerry
+                                                    <input type="radio" name="delivery" value="2"> Kerry
                                                 </li>
                                             </ul>
                                         </div>
@@ -259,7 +259,7 @@
 
                                     <div class="form-row place-order">
 
-                                        <input type="button" onclick="thanhtoan()" data-value="Place order" value="Thanh toán" id="place_order" name="woocommerce_checkout_place_order" class="button alt btn btn-primary">
+                                        <input type="button" onclick="thanhtoan()" data-value="Place order" value="Thanh toán" id="place_order" name="woocommerce_checkout_place_order" class="button alt">
 
 
                                     </div>

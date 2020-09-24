@@ -39,6 +39,15 @@
             flag=0;
         }
 
+        // phương thức giao hàng
+        var ptgh = document.getElementsByName("delivery");
+        for(var i = 0; i < ptgh.length; i++){
+            if(ptgh[i].checked==true)
+            {
+                var value_ptgh = ptgh[i].value;
+            }
+        }
+
         if(flag==1)
         {
             $.ajax({
@@ -52,12 +61,17 @@
                     'province': province, 
                     'dictrict': dictrict,
                     'wards': wards,
+
+                    // ptgh
+                    'id_delivery': value_ptgh
                 },
                 success: function(result){
-                    if(result=='customer')
-                    {
-                        alert('Đã thêm khách hàng thành công');
-                    }
+                    //if(result=='ok')
+                    //{
+                        //alert('Đã thanh toán thành công, nhân viên tư vấn sẽ liên hệ với bạn sau!');
+                        // tự động chuyển trang
+                        //window.location.href = '<?php echo URL; ?>';
+                    //}
                     console.log(result);
                     //$('#'+table).html(result);
                 }

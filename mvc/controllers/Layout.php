@@ -159,13 +159,13 @@
             $mail->Port = 465; // set the port to use
             $mail->SMTPAuth = true; // turn on SMTP authentication
             $mail->SMTPSecure = 'ssl';
-            $mail->Username = "phamthuhang09091999@gmail.com"; // your SMTP username or your gmail username
-            $mail->Password = "moicongchua0909"; // your SMTP password or your gmail password
-            $from = "phamthuhang09091999@gmail.com"; // Reply to this email
-            $to = "lengoctuyen197@gmail.com"; // Recipients email ID
-            $name = "Tuyên ơi em đói"; // Recipient's name
+            $mail->Username = "me@gmail.com"; // your SMTP username or your gmail username
+            $mail->Password = "pass"; // your SMTP password or your gmail password
+            $from = "me@gmail.com"; // Reply to this email
+            $to = "friend@gmail.com"; // Recipients email ID
+            $name = "hello"; // Recipient's name
             $mail->From = $from;
-            $mail->FromName = "Chin chào Tuyên"; // Name to indicate where the email came from when the recepient received
+            $mail->FromName = "hello"; // Name to indicate where the email came from when the recepient received
             $mail->AddAddress($to,$name);
             $mail->AddReplyTo($from,"Test thử");
             $mail->WordWrap = 50; // set word wrap
